@@ -51,7 +51,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const gridContainer = document.getElementById('grid-container');
-            const colors = [
+            const colours = [
                 [0, 255, 0],   [0, 225, 45],  [0, 195, 75],  [0, 165, 105],
                 [0, 135, 135], [0, 105, 165], [0, 75, 195],  [0, 45, 225],
                 [0, 0, 255],   [45, 0, 225],  [75, 0, 195],  [105, 0, 165],
@@ -60,23 +60,21 @@
             ];
             const blockSize = 6; // Number of cells per colour block
 
-            // Function to calculate elapsed minutes since 6 AM
             function calculateElapsedMinutes() {
                 const now = new Date();
                 const hours = now.getHours();
                 const minutes = now.getMinutes();
                 const elapsedMinutes = (hours - 6) * 60 + minutes;
+                console.log(elapsedMinutes);
                 return elapsedMinutes;
             }
 
-            // Function to determine colour based on cell index
-            function getColorForCell(index) {
-                const colorIndex = Math.floor(index / blockSize) % colors.length;
-                const [r, g, b] = colors[colorIndex];
+            function getColourForCell(index) {
+                const colourIndex = Math.floor(index / blockSize) % colours.length;
+                const [r, g, b] = colours[colourIndex];
                 return `rgb(${r},${g},${b})`;
             }
 
-            // Function to update the grid based on elapsed time
             function updateGrid() {
                 const elapsedMinutes = calculateElapsedMinutes();
                 const totalCells = 100;
@@ -92,8 +90,8 @@
                         cell.classList.add('grid-cell');
                         const cellIndex = i * 10 + j;
                         if (cellIndex < filledCells) {
-                            const color = getColorForCell(cellIndex);
-                            cell.style.backgroundColor = color;
+                            const colour = getColourForCell(cellIndex);
+                            cell.style.backgroundColor = colour;
                         }
                         row.appendChild(cell);
                     }
@@ -101,8 +99,9 @@
                 }
             }
 
-            // Update the grid every second
-            setInterval(updateGrid, 1000);
+            setInterval(updateGrid, 60000);
+
+            updateGrid();
         });
     </script>
 </body>
