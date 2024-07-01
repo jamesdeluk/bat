@@ -19,6 +19,7 @@
 
         .container {
             text-align: center;
+            width: 100%;
         }
 
         h1 {
@@ -27,8 +28,9 @@
         }
 
         #grid-container {
-            height: 80vh;
-            width: 80vh;
+            height: min(80vh,80vw);
+            width: min(80vh,80vw);
+            margin: auto;
         }
 
         .grid-row {
@@ -42,6 +44,7 @@
             border: 1px solid #ccc;
             margin: 1px;
         }
+
     </style>
 </head>
 <body>
