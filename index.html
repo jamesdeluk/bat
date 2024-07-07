@@ -94,7 +94,11 @@
             const toggleButton = document.getElementById('toggleButton');
             const colours1 = [[0,255,0],[0,225,45],[0,195,75],[0,165,105],[0,135,135],[0,105,165],[0,75,195],[0,45,225],[0,0,255],[45,0,225],[75,0,195],[105,0,165],[135,0,135],[165,0,105],[195,0,75],[225,0,45],[255,0,0]];
             const colours2 = [[160,255,56],[90,255,56],[56,255,92],[56,255,163],[56,255,233],[56,207,255],[56,137,255],[56,66,255],[116,56,255],[186,56,255],[255,56,254],[255,56,183],[255,56,113],[255,69,56],[255,139,56],[255,209,56],[230,255,56]];
-            let colours = colours1;
+            const rampColours1 = ['#FFFFFF','#CDCDCD','#9B9B9B','#696969','#373737','#050505'];
+            let currentColoursIndex = 0;
+            const coloursArray = [colours1, colours2, rampColours1];
+            let colours = coloursArray[currentColoursIndex];
+            let repeat = true;
             const blockSize = 6; // Number of cells per colour block
 
             function calculateElapsedMinutes() {
@@ -107,9 +111,14 @@
             }
 
             function getColourForCell(index) {
-                const colourIndex = Math.floor(index / blockSize) % colours.length;
-                const [r,g,b] = colours[colourIndex];
-                return `rgb(${r},${g},${b})`;
+                if (colours.length != 6) {
+                    const colourIndex = Math.floor(index / blockSize) % colours.length;
+                    const [r,g,b] = colours[colourIndex];
+                    return `rgb(${r},${g},${b})`;
+                } else {
+                    const colourIndex = index % blockSize;
+                    return colours[colourIndex];
+                }
             }
 
             function updateGrid() {
@@ -137,7 +146,8 @@
             }
 
             toggleButton.addEventListener('click', function() {
-                colours = colours === colours1 ? colours2 : colours1;
+                currentColoursIndex = (currentColoursIndex + 1) % coloursArray.length;
+                colours = coloursArray[currentColoursIndex];
                 updateGrid();
             });
 
