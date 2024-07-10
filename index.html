@@ -173,12 +173,13 @@
             toggleButton.addEventListener('click', function() {
                 currentColoursIndex = (currentColoursIndex + 1) % coloursArray.length;
                 colours = coloursArray[currentColoursIndex];
+                console.log(colours);
                 updateGrid();
             });
 
             gridSizeButton.addEventListener('click', function() {
                 gridSize = gridSize === 10 ? 12 : 10;
-                // colours = gridSize === 10 ? coloursArray1 : coloursArray2;
+                coloursArray = gridSize === 10 ? coloursArray1 : coloursArray2;
                 updateGrid();
             });
 
