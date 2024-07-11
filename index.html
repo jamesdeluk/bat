@@ -2,6 +2,7 @@
 To do
 - Split HTML/CSS/JS
 - Fix black cell on toggle
+- 144 spacing
 -->
 
 <!DOCTYPE html>
@@ -170,13 +171,14 @@ To do
             toggleButton.addEventListener('click', function() {
                 currentColoursIndex = (currentColoursIndex + 1) % coloursArray.length;
                 colours = coloursArray[currentColoursIndex];
-                console.log(colours);
                 updateGrid();
             });
 
             gridSizeButton.addEventListener('click', function() {
                 gridSize = gridSize === 10 ? 12 : 10;
                 coloursArray = gridSize === 10 ? coloursArray1 : coloursArray2;
+                currentColoursIndex = (currentColoursIndex) % coloursArray.length;
+                colours = coloursArray[currentColoursIndex];
                 const text = document.getElementById('text');
                 text.innerHTML = gridSize === 10 ? "Each block represents 10 minutes.<br/>There are 100 blocks in total, representing 1000 minutes, or 16 hours 40 minutes.<br/>The grid starts at 6AM and finishes at 10:40PM." : "Each block represents 10 minutes.<br/>There are 144 blocks in total, representing 1440 minutes, or 24 hours.<br/>The grid starts at midnight.";
                 updateGrid();
