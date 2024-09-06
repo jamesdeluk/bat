@@ -79,6 +79,7 @@ a:hover {
 
 .black {
     background-color: black !important;
+    color: white;
 }
 
 #toggleButton,
