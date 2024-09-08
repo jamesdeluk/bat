@@ -32,6 +32,8 @@ function startWorkTimer() {
     if (isWorkRunning) return;
     isWorkRunning = true;
 
+    document.getElementById('timer').style.fontSize = '96px';
+
     workTimer = setInterval(() => {
         if (!isWorkPaused) {
             if (currentWorkSeconds === 0) {
@@ -62,6 +64,7 @@ function resetWorkTimer() {
     clearInterval(workTimer);
     isWorkRunning = false;
     isWorkPaused = false;
+    document.getElementById('timer').style.fontSize = '48px';
     currentWorkMinutes = workMinutes;
     currentWorkSeconds = 0;
     updateWorkDisplay();
@@ -98,6 +101,8 @@ function startBreakTimer() {
     if (isBreakRunning) return;
     isBreakRunning = true;
 
+    document.getElementById('break-timer').style.fontSize = '96px';
+
     breakTimer = setInterval(() => {
         if (!isBreakPaused) {
             if (currentBreakSeconds === 0) {
@@ -128,6 +133,7 @@ function resetBreakTimer() {
     clearInterval(breakTimer);
     isBreakRunning = false;
     isBreakPaused = false;
+    document.getElementById('break-timer').style.fontSize = '48px';
     currentBreakMinutes = breakMinutes;
     currentBreakSeconds = 0;
     updateBreakDisplay();
