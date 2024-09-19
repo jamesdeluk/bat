@@ -8,6 +8,21 @@ function updateTabTitle(minutes, seconds) {
 
 const defaultTitle = "Blocks and Timers";
 
+function playBuzzerSound() {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // Set frequency to 440 Hz
+    gainNode.gain.setValueAtTime(1, audioContext.currentTime); // Set volume to 50%
+
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + 2);
+}
+
 // Work Timer
 let workTimer;
 let isWorkPaused = false;
@@ -33,14 +48,16 @@ function startWorkTimer() {
     isWorkRunning = true;
 
     document.getElementById('timer').style.fontSize = '96px';
+    document.getElementById('pomodoro-container').style.backgroundColor = 'green';
 
     workTimer = setInterval(() => {
         if (!isWorkPaused) {
             if (currentWorkSeconds === 0) {
                 if (currentWorkMinutes === 0) {
+                    playBuzzerSound();
                     clearInterval(workTimer);
-                    alert("Work time's up! Time for a break.");
                     document.title = defaultTitle;
+                    alert("Work time's up! Time for a break.");
                     return;
                 } else {
                     currentWorkMinutes--;
@@ -65,6 +82,7 @@ function resetWorkTimer() {
     isWorkRunning = false;
     isWorkPaused = false;
     document.getElementById('timer').style.fontSize = '48px';
+    document.getElementById('pomodoro-container').style.backgroundColor = '';
     currentWorkMinutes = workMinutes;
     currentWorkSeconds = 0;
     updateWorkDisplay();
@@ -102,14 +120,16 @@ function startBreakTimer() {
     isBreakRunning = true;
 
     document.getElementById('break-timer').style.fontSize = '96px';
+    document.getElementById('pomodoro-container').style.backgroundColor = 'red';
 
     breakTimer = setInterval(() => {
         if (!isBreakPaused) {
             if (currentBreakSeconds === 0) {
                 if (currentBreakMinutes === 0) {
+                    playBuzzerSound();
                     clearInterval(breakTimer);
-                    alert("Break time's up! Back to work.");
                     document.title = defaultTitle;
+                    alert("Break time's up! Back to work.");
                     return;
                 } else {
                     currentBreakMinutes--;
@@ -134,6 +154,7 @@ function resetBreakTimer() {
     isBreakRunning = false;
     isBreakPaused = false;
     document.getElementById('break-timer').style.fontSize = '48px';
+    document.getElementById('pomodoro-container').style.backgroundColor = '';
     currentBreakMinutes = breakMinutes;
     currentBreakSeconds = 0;
     updateBreakDisplay();
