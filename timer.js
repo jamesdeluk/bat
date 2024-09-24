@@ -75,6 +75,7 @@ function startWorkTimer() {
 
 function pauseWorkTimer() {
     isWorkPaused = !isWorkPaused;
+    pauseButton.textContent = isWorkPaused ? 'Resume' : 'Pause'; // Update button text
 }
 
 function resetWorkTimer() {
@@ -147,6 +148,7 @@ function startBreakTimer() {
 
 function pauseBreakTimer() {
     isBreakPaused = !isBreakPaused;
+    breakPauseButton.textContent = isBreakPaused ? 'Resume' : 'Pause'; // Update button text
 }
 
 function resetBreakTimer() {
