@@ -54,7 +54,7 @@ function startWorkTimer() {
         if (!isWorkPaused) {
             if (currentWorkSeconds === 0) {
                 if (currentWorkMinutes === 0) {
-                    playBuzzerSound();
+                    // playBuzzerSound();
                     clearInterval(workTimer);
                     document.title = defaultTitle;
                     alert("Work time's up! Time for a break.");
@@ -127,7 +127,7 @@ function startBreakTimer() {
         if (!isBreakPaused) {
             if (currentBreakSeconds === 0) {
                 if (currentBreakMinutes === 0) {
-                    playBuzzerSound();
+                    // playBuzzerSound();
                     clearInterval(breakTimer);
                     document.title = defaultTitle;
                     alert("Break time's up! Back to work.");
