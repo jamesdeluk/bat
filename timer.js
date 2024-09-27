@@ -47,7 +47,7 @@ function startWorkTimer() {
                 if (currentWorkMinutes === 0) {
                     playSound();
                     clearInterval(workTimer);
-                    document.title = "TIME UP";
+                    document.title = "‼️‼️ TIME UP ‼️‼️";
                     alert("Work time's up! Time for a break.");
                     return;
                 } else {
@@ -119,7 +119,7 @@ function startBreakTimer() {
                 if (currentBreakMinutes === 0) {
                     playSound();
                     clearInterval(breakTimer);
-                    document.title = "BREAK OVER";
+                    document.title = "‼️‼️ BREAK OVER ‼️‼️";
                     alert("Break time's up! Back to work.");
                     return;
                 } else {
