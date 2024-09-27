@@ -48,7 +48,7 @@ function startWorkTimer() {
                     playSound();
                     clearInterval(workTimer);
                     document.title = "TIME UP";
-                    // alert("Work time's up! Time for a break.");
+                    alert("Work time's up! Time for a break.");
                     return;
                 } else {
                     currentWorkMinutes--;
