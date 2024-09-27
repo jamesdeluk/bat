@@ -7,20 +7,12 @@ function updateTabTitle(minutes, seconds) {
 }
 
 const defaultTitle = "Blocks and Timers";
+let workMinutes = 25;
+let breakMinutes = 5;
 
-function playBuzzerSound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-
-    oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // Set frequency to 440 Hz
-    gainNode.gain.setValueAtTime(1, audioContext.currentTime); // Set volume to 50%
-
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 2);
+function playSound() {
+    const audio = new Audio('public-domain-beep-sound-100267-3.mp3');
+    audio.play();
 }
 
 // Work Timer
@@ -28,7 +20,6 @@ let workTimer;
 let isWorkPaused = false;
 let isWorkRunning = false;
 
-let workMinutes = 25;
 let currentWorkMinutes = workMinutes;
 let currentWorkSeconds = 0;
 
@@ -54,10 +45,10 @@ function startWorkTimer() {
         if (!isWorkPaused) {
             if (currentWorkSeconds === 0) {
                 if (currentWorkMinutes === 0) {
-                    // playBuzzerSound();
+                    playSound();
                     clearInterval(workTimer);
-                    document.title = defaultTitle;
-                    alert("Work time's up! Time for a break.");
+                    document.title = "TIME UP";
+                    // alert("Work time's up! Time for a break.");
                     return;
                 } else {
                     currentWorkMinutes--;
@@ -101,7 +92,6 @@ let breakTimer;
 let isBreakPaused = false;
 let isBreakRunning = false;
 
-let breakMinutes = 5;
 let currentBreakMinutes = breakMinutes;
 let currentBreakSeconds = 0;
 
@@ -127,9 +117,9 @@ function startBreakTimer() {
         if (!isBreakPaused) {
             if (currentBreakSeconds === 0) {
                 if (currentBreakMinutes === 0) {
-                    // playBuzzerSound();
+                    playSound();
                     clearInterval(breakTimer);
-                    document.title = defaultTitle;
+                    document.title = "BREAK OVER";
                     alert("Break time's up! Back to work.");
                     return;
                 } else {
