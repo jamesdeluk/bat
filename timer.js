@@ -7,7 +7,7 @@ function updateTabTitle(minutes, seconds) {
 }
 
 const defaultTitle = "Blocks and Timers";
-let workMinutes = 25;
+let focusMinutes = 25;
 let breakMinutes = 5;
 
 function playSound() {
@@ -15,77 +15,77 @@ function playSound() {
     audio.play();
 }
 
-// Work Timer
-let workTimer;
-let isWorkPaused = false;
-let isWorkRunning = false;
+// Focus Timer
+let focusTimer;
+let isFocusPaused = false;
+let isFocusRunning = false;
 
-let currentWorkMinutes = workMinutes;
-let currentWorkSeconds = 0;
+let currentFocusMinutes = focusMinutes;
+let currentFocusSeconds = 0;
 
 const startButton = document.getElementById('start-btn');
 const pauseButton = document.getElementById('pause-btn');
 const resetButton = document.getElementById('reset-btn');
-const workMinutesDisplay = document.getElementById('minutes');
-const workSecondsDisplay = document.getElementById('seconds');
+const focusMinutesDisplay = document.getElementById('minutes');
+const focusSecondsDisplay = document.getElementById('seconds');
 
-function updateWorkDisplay() {
-    workMinutesDisplay.textContent = currentWorkMinutes < 10 ? '0' + currentWorkMinutes : currentWorkMinutes;
-    workSecondsDisplay.textContent = currentWorkSeconds < 10 ? '0' + currentWorkSeconds : currentWorkSeconds;
+function updateFocusDisplay() {
+    focusMinutesDisplay.textContent = currentFocusMinutes < 10 ? '0' + currentFocusMinutes : currentFocusMinutes;
+    focusSecondsDisplay.textContent = currentFocusSeconds < 10 ? '0' + currentFocusSeconds : currentFocusSeconds;
 }
 
-function startWorkTimer() {
-    if (isWorkRunning) return;
-    isWorkRunning = true;
+function startFocusTimer() {
+    if (isFocusRunning) return;
+    isFocusRunning = true;
 
     document.getElementById('timer').style.fontSize = '96px';
     document.getElementById('pomodoro-container').style.backgroundColor = 'green';
 
-    workTimer = setInterval(() => {
-        if (!isWorkPaused) {
-            if (currentWorkSeconds === 0) {
-                if (currentWorkMinutes === 0) {
+    focusTimer = setInterval(() => {
+        if (!isFocusPaused) {
+            if (currentFocusSeconds === 0) {
+                if (currentFocusMinutes === 0) {
                     playSound();
-                    clearInterval(workTimer);
+                    clearInterval(focusTimer);
                     document.title = "‼️‼️ TIME UP ‼️‼️";
-                    alert("Work time's up! Time for a break.");
+                    alert("Focus time's up! Time for a break.");
                     return;
                 } else {
-                    currentWorkMinutes--;
-                    currentWorkSeconds = 59;
+                    currentFocusMinutes--;
+                    currentFocusSeconds = 59;
                 }
             } else {
-                currentWorkSeconds--;
+                currentFocusSeconds--;
             }
-            updateWorkDisplay();
-            //   updateTabTitle(currentWorkMinutes, currentWorkSeconds, 'Work');
-            updateTabTitle(currentWorkMinutes, currentWorkSeconds);
+            updateFocusDisplay();
+            //   updateTabTitle(currentFocusMinutes, currentFocusSeconds, 'Focus');
+            updateTabTitle(currentFocusMinutes, currentFocusSeconds);
         }
     }, 1000);
 }
 
-function pauseWorkTimer() {
-    isWorkPaused = !isWorkPaused;
-    pauseButton.textContent = isWorkPaused ? 'Resume' : 'Pause'; // Update button text
+function pauseFocusTimer() {
+    isFocusPaused = !isFocusPaused;
+    pauseButton.textContent = isFocusPaused ? 'Resume' : 'Pause'; // Update button text
 }
 
-function resetWorkTimer() {
-    clearInterval(workTimer);
-    isWorkRunning = false;
-    isWorkPaused = false;
+function resetFocusTimer() {
+    clearInterval(focusTimer);
+    isFocusRunning = false;
+    isFocusPaused = false;
     document.getElementById('timer').style.fontSize = '48px';
     document.getElementById('pomodoro-container').style.backgroundColor = '';
-    currentWorkMinutes = workMinutes;
-    currentWorkSeconds = 0;
-    updateWorkDisplay();
+    currentFocusMinutes = focusMinutes;
+    currentFocusSeconds = 0;
+    updateFocusDisplay();
     document.title = defaultTitle;
 }
 
-startButton.addEventListener('click', startWorkTimer);
-pauseButton.addEventListener('click', pauseWorkTimer);
-resetButton.addEventListener('click', resetWorkTimer);
+startButton.addEventListener('click', startFocusTimer);
+pauseButton.addEventListener('click', pauseFocusTimer);
+resetButton.addEventListener('click', resetFocusTimer);
 
-updateWorkDisplay();
+updateFocusDisplay();
 
 // Break Timer
 let breakTimer;
@@ -120,7 +120,7 @@ function startBreakTimer() {
                     playSound();
                     clearInterval(breakTimer);
                     document.title = "‼️‼️ BREAK OVER ‼️‼️";
-                    alert("Break time's up! Back to work.");
+                    alert("Break time's up! Back to focussing.");
                     return;
                 } else {
                     currentBreakMinutes--;
